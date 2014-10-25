@@ -3,6 +3,7 @@
 
 #include "CSingleton.h"
 #include "CTexture.h"
+#include "CQuadrique.h"
 
 class COGLRenderer : public CSingleton<COGLRenderer>
 {
@@ -10,6 +11,7 @@ class COGLRenderer : public CSingleton<COGLRenderer>
 
     SDL_Window     *m_Window;
     SDL_GLContext   m_Context;
+    static GLUquadricObj *s_quadric;
 
     COGLRenderer();
     ~COGLRenderer();
@@ -38,25 +40,25 @@ class COGLRenderer : public CSingleton<COGLRenderer>
         bool Initialize(SDL_Window *Window);
         //////////////////////////////////////////////////////////////////
         /// @name : ReinitMatrix (public)
-        /// @param : GLenum : la matrice à réinitialiser
+        /// @param : CEnums::Matrix : la matrice à réinitialiser
         /// @return : aucun
         /// remet les valeurs par défaut de la matrice
         //////////////////////////////////////////////////////////////////
-        void ReinitMatrix(GLenum mode);
+        void ReinitMatrix(CEnums::Matrix mode);
         //////////////////////////////////////////////////////////////////
         /// @name : PushMatrix (public)
-        /// @param : GLenum : la matrice à sauvegarder
+        /// @param : CEnums::Matrix : la matrice à sauvegarder
         /// @return : aucun
         /// sauvegarde la matrice
         //////////////////////////////////////////////////////////////////
-        void PushMatrix  (GLenum mode);
+        void PushMatrix  (CEnums::Matrix mode);
         //////////////////////////////////////////////////////////////////
         /// @name : PopMatrix (public)
-        /// @param : GLenum : la matrice à charger
+        /// @param : CEnums::Matrix : la matrice à charger
         /// @return : aucun
         /// charge la matrice
         //////////////////////////////////////////////////////////////////
-        void PopMatrix   (GLenum mode);
+        void PopMatrix   (CEnums::Matrix mode);
         //////////////////////////////////////////////////////////////////
         /// @name : SetPerspective (public)
         /// @param : GLdouble fov, GLdouble aspect, GLdouble proche, GLdouble loin
@@ -92,6 +94,13 @@ class COGLRenderer : public CSingleton<COGLRenderer>
         /// décharge la texture pour un rendu
         //////////////////////////////////////////////////////////////////
         void Unload2DTexture();
+        //////////////////////////////////////////////////////////////////
+        /// @name : RenderQuadric (public)
+        /// @param : CQuadrique&
+        /// @return : aucun
+        /// Affiche le Quadrique sur la scène
+        //////////////////////////////////////////////////////////////////
+        void RenderQuadric( CQuadrique& quadric );
 };
 
 #endif // COGLRENDERER_H

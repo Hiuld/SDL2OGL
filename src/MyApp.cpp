@@ -2,6 +2,18 @@
 
 #include <cmath>
 
+void MyApp::loadText( CTexture& tex, const char* path )
+{
+    try
+    {
+        tex.LoadTextureFromFile(path, true);
+    }
+    catch( C3DTextureException& e )
+    {
+        tex = DefaultTex;
+    }
+}
+
 void MyApp::OnInitialize()
 {
     GLuint pixels[128*128];
@@ -26,46 +38,45 @@ void MyApp::OnInitialize()
     }
     DefaultTex.LoadTextureFromPixels32(pixels, 128, 128, true);
 
-    try
+    loadText(tileTex, "tiles_ctf05r.jpg");
+    loadText(groundTex, "metal091.jpg");
+    loadText(glassTex, "stainedglass05.jpg");
+
+    const char *planets[] =
     {
-        tileTex.LoadTextureFromFile("tiles_ctf05r.jpg",true);
-        groundTex.LoadTextureFromFile("metal091.jpg",true);
-        try
-        {
-            glassTex.LoadTextureFromFile("stainedglass05.jpg", true);
-        }
-        catch( C3DTextureException &e )
-        {
-            glassTex = DefaultTex;
-        }
-    }
-    catch( C3DTextureException &e )
+        "mercureLow.jpg",
+        "venusLow.jpg",
+        "marsLow.jpg",
+        "EarthLow.jpg",
+        "JupiterHigh.jpg",
+        "NeptuneLow.jpg",
+        "uranusLow.jpg"
+    };
+
+    for( int i = 0; i < 7; ++i )
     {
-        groundTex = DefaultTex;
+        loadText(planetTex[i], planets[i]);
     }
 
     SetTitle("Un titre");
     //SetIcon(icone);
     rotX = rotY = rotZ = 0.0;
     posX = posY = posZ = 0.0;
-    //rotY = 45;
-    fpsLimit = 60;
     m_Renderer.SetPerspective(70, (double)1024/768, 1, 1000);
-    //rotateOnX = true; rotateOnY = true;
     mipmap = false;
     fullscreen = false;
     m_LeftClick = false;
     fov = 70;
-    c = b = a = 0;
+    d = c = b = a = 0;
     camX = 3;
     camY = 0;
     camZ = 3;
-    monte = true;
+    tt = 40;
 }
 
 void MyApp::OnUpdate()
 {
-    m_Renderer.ReinitMatrix(GL_MODELVIEW);
+    m_Renderer.ReinitMatrix(CEnums::M_MODELVIEW);
 
     gluLookAt(camX,camY,camZ,0,0,0,0,0,1);
 
@@ -88,7 +99,7 @@ void MyApp::RenderGround()
 
 void MyApp::RenderCube()
 {
-    m_Renderer.PushMatrix(GL_MODELVIEW);
+    m_Renderer.PushMatrix(CEnums::M_MODELVIEW);
 
     a += 0.05;
 
@@ -121,12 +132,12 @@ void MyApp::RenderCube()
         glVertex3d(-1,-1,1);
     glEnd();
 
-    m_Renderer.PopMatrix(GL_MODELVIEW);
+    m_Renderer.PopMatrix(CEnums::M_MODELVIEW);
 }
 
 void MyApp::RenderPyramide()
 {
-    m_Renderer.PushMatrix(GL_MODELVIEW);
+    m_Renderer.PushMatrix(CEnums::M_MODELVIEW);
 
     b += M_PI/80;
     c += M_PI/150;
@@ -153,12 +164,36 @@ void MyApp::RenderPyramide()
         glRotated(90,0,0,1);
     }
 
-    m_Renderer.PopMatrix(GL_MODELVIEW);
+    m_Renderer.PopMatrix(CEnums::M_MODELVIEW);
 }
 
 void MyApp::OnRender()
 {
     RenderGround();
+
+    m_Renderer.PushMatrix(CEnums::M_MODELVIEW);
+    // Une sphere
+    CSphere sphere;
+
+    glTranslated(0, 0, 2.5);
+
+    d = fmod(d, 360)+1;
+
+    for( int i = 0; i < 7; ++i )
+    {
+        sphere.SetTexture(planetTex[i]);
+        sphere.SetSlice(tt); sphere.SetStack(tt);
+        sphere.SetRadius(1);
+        glRotated(51.42, 0, 0, 1);
+        glTranslated(10, 0, 0);
+        glRotated(d, 0, 0, 1);
+        m_Renderer.RenderQuadric(sphere);
+        glRotated(-d, 0, 0, 1);
+        glTranslated(-10, 0, 0);
+    }
+
+    m_Renderer.PopMatrix(CEnums::M_MODELVIEW);
+
     RenderCube();
     RenderPyramide();
 }
@@ -179,8 +214,8 @@ void MyApp::OnEvent(SDL_Event& event)
                 case SDLK_PAGEDOWN: m_Renderer.SetPerspective(fov+=2,(double)1024/768, 1, 1000 ); break;
                 case SDLK_PAGEUP  : m_Renderer.SetPerspective(fov-=2,(double)1024/768, 1, 1000 ); break;
                 case SDLK_END     : m_Renderer.SetPerspective(fov=70, (double)1024/768, 1, 1000); break;
-                case SDLK_KP_PLUS : SetFPSLimit(fpsLimit < 60 ? ++fpsLimit : 0); break;
-                case SDLK_KP_MINUS: SetFPSLimit(fpsLimit > 30  ? --fpsLimit : 0); break;
+                case SDLK_KP_PLUS : if( tt < 239 ) ++tt; break;
+                case SDLK_KP_MINUS: if( tt > 0 ) --tt; break;
                 case SDLK_c       :
                     mipmap = !mipmap;
                     try

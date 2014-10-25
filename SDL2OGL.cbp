@@ -46,11 +46,13 @@
 		<Unit filename="include/COGLRenderer.h" />
 		<Unit filename="include/CSingleton.h" />
 		<Unit filename="include/CTexture.h" />
+		<Unit filename="include/MyApp.h" />
 		<Unit filename="include/global_includes.h" />
+		<Unit filename="main.cpp" />
 		<Unit filename="src/CApplication.cpp" />
 		<Unit filename="src/COGLRenderer.cpp" />
 		<Unit filename="src/CTexture.cpp" />
-		<Unit filename="src/main.cpp" />
+		<Unit filename="src/MyApp.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

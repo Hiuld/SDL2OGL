@@ -12,9 +12,9 @@ class MyApp : public CApplication
     virtual void OnEvent(SDL_Event& event);
     // Fonctions d'évènements perso pour une simplification
     void MouseButtonDown(SDL_MouseButtonEvent &MouseButton);
-    void MouseButtonUp(SDL_MouseButtonEvent &MouseButton);
-    void MouseMotion(SDL_MouseMotionEvent &MouseMotion);
-    void MouseWheel(SDL_MouseWheelEvent &Wheel);
+    void MouseButtonUp  (SDL_MouseButtonEvent &MouseButton);
+    void MouseMotion    (SDL_MouseMotionEvent &MouseMotion);
+    void MouseWheel     (SDL_MouseWheelEvent  &Wheel);
     // Fonctions de rendu de certaine parties de la scène
     void RenderGround();
     void RenderCube();
@@ -28,15 +28,14 @@ class MyApp : public CApplication
     // field of view (zoom)
     double fov;
     // variables pour le fun des models
-    double a, b, c;
-    bool monte;
-    // Variable pour les fps
-    int fpsLimit;
+    double a, b, c, d;
+    int tt;
     // Texture générée par programation,
     // C'est la texture par défaut si une texture ne se charge pas
+    void loadText( CTexture&, const char* );
     CTexture DefaultTex;
     // Textures provenant de fichier
-    CTexture groundTex, glassTex, tileTex;
+    CTexture groundTex, glassTex, tileTex, planetTex[7];
     // Booléen pour savoir si on utilise le mipmap, si le bouton gauche de la souris est appuyé, etc...
     bool m_LeftClick, mipmap, fullscreen;
 

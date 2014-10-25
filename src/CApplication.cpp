@@ -5,6 +5,7 @@ CApplication *CApplication::s_Instance = NULL;
 CApplication::CApplication():
     m_Window(NULL),
     m_FPSLimit(1000/60),
+    m_error(NO_ERROR),
     // On lance l'appli
     m_Quit(false),
     // Initialiser la référence vers l'API de rendu
@@ -50,13 +51,19 @@ void CApplication::Quit()
     m_Quit = true;
 }
 
-void CApplication::Run()
+APP_ERRORS CApplication::Run()
 {
     MakeWindow();
     initVideoModes();
-    m_Renderer.Initialize(m_Window);
+    if( !m_Renderer.Initialize(m_Window) )
+    {
+        m_Quit = true;
+        m_error = FAILED_INIT_RENDERER;
+    }
     OnInitialize();
     MainLoop();
+
+    return m_error;
 }
 
 void CApplication::MainLoop()
@@ -81,6 +88,7 @@ void CApplication::MainLoop()
         m_Renderer.EndScene();
 
         // Si on a mis moins de temps que le nombre de FPS demandé, on attend
+        // permet de limiter les fps et de gagner du temps de process CPU
         if( (elapsedTime = SDL_GetTicks()-startTime) < m_FPSLimit )
         {
             SDL_Delay(m_FPSLimit - elapsedTime);

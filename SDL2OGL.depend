@@ -328,9 +328,8 @@
 	"begin_code.h"
 	"close_code.h"
 
-1414151094 source:g:\codeblocks\projets\code blocks\sdl2ogl\main.cpp
-	"CApplication.h"
-	<cmath>
+1414151390 source:g:\codeblocks\projets\code blocks\sdl2ogl\main.cpp
+	"MyApp.h"
 
 1394940798 g:\codeblocks\mingw\sdl2\include\sdl2\sdl_opengl.h
 	"SDL_config.h"
@@ -362,13 +361,13 @@
 	<mir_toolkit/mir_client_library.h>
 	"close_code.h"
 
-1414092571 source:g:\codeblocks\projets\code blocks\sdl2ogl\src\capplication.cpp
+1414250647 source:g:\codeblocks\projets\code blocks\sdl2ogl\src\capplication.cpp
 	"CApplication.h"
 
-1414151314 g:\codeblocks\projets\code blocks\sdl2ogl\include\capplication.h
+1414250591 g:\codeblocks\projets\code blocks\sdl2ogl\include\capplication.h
 	"COGLRenderer.h"
 
-1414082380 g:\codeblocks\projets\code blocks\sdl2ogl\include\global_includes.h
+1414249210 g:\codeblocks\projets\code blocks\sdl2ogl\include\global_includes.h
 	<SDL.h>
 	<GL/gl.h>
 	<GL/glu.h>
@@ -383,15 +382,15 @@
 	"CApplication.h"
 	<cmath>
 
-1414082901 g:\codeblocks\projets\code blocks\sdl2ogl\include\coglrenderer.h
+1414257905 g:\codeblocks\projets\code blocks\sdl2ogl\include\coglrenderer.h
 	"CSingleton.h"
 	"CTexture.h"
+	"CQuadrique.h"
 
 1414079170 g:\codeblocks\projets\code blocks\sdl2ogl\include\csingleton.h
 
-1414082916 source:g:\codeblocks\projets\code blocks\sdl2ogl\src\coglrenderer.cpp
+1414259844 source:g:\codeblocks\projets\code blocks\sdl2ogl\src\coglrenderer.cpp
 	"COGLRenderer.h"
-	<SDL_opengl.h>
 
 1414007221 source:g:\codeblocks\projets\code blocks\sdl2ogl\src\itexture.cpp
 	"ITexture.h"
@@ -426,7 +425,7 @@
 	<string>
 	<exception>
 
-1414085744 source:g:\codeblocks\projets\code blocks\sdl2ogl\src\ctexture.cpp
+1414262685 source:g:\codeblocks\projets\code blocks\sdl2ogl\src\ctexture.cpp
 	"CTexture.h"
 	"COGLRenderer.h"
 
@@ -435,4 +434,18 @@
 	<SDL_image.h>
 
 1414082224 g:\codeblocks\projets\code blocks\sdl2ogl\include\enums.h
+
+1414265829 g:\codeblocks\projets\code blocks\sdl2ogl\include\myapp.h
+	"CApplication.h"
+
+1414265099 source:g:\codeblocks\projets\code blocks\sdl2ogl\src\myapp.cpp
+	"MyApp.h"
+	<cmath>
+
+1414261884 source:g:\codeblocks\projets\code blocks\sdl2ogl\src\cquadrique.cpp
+	"CQuadrique.h"
+
+1414263613 g:\codeblocks\projets\code blocks\sdl2ogl\include\cquadrique.h
+	"global_includes.h"
+	"CTexture.h"
 

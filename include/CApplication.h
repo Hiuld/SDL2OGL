@@ -3,10 +3,17 @@
 
 #include "COGLRenderer.h"
 
+enum APP_ERRORS
+{
+    NO_ERROR,
+    FAILED_INIT_RENDERER
+};
+
 class CApplication
 {
     public :SDL_Window    *m_Window;
     unsigned char  m_FPSLimit;
+    APP_ERRORS     m_error;
     bool           m_Quit;
     bool           m_FullScreen;
     // int : écran
@@ -101,10 +108,10 @@ class CApplication
         //////////////////////////////////////////////////////////////////
         /// @name : Run (public)
         /// @param : aucun
-        /// @return : aucun
+        /// @return : APP_ERRORS : Code d'erreur
         /// Démarre l'application
         //////////////////////////////////////////////////////////////////
-        void Run();
+        APP_ERRORS Run();
         //////////////////////////////////////////////////////////////////
         /// @name : Quit (public)
         /// @param : aucun
